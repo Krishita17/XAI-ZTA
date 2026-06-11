@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environment
+venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data (large files)
+data/raw/*.csv
+data/raw/*.json
+!data/raw/place_raw_dataset_here.txt
+
+# Model artifacts
+*.pkl
+*.joblib
+*.pt
+*.pth
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+experiments/logs/*.txt
+!experiments/logs/.gitkeep
+!experiments/logs/training_logs.txt
+
+# Reports
+*.pdf
+!user_study/questionnaire.pdf

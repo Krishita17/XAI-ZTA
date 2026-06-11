@@ -1,0 +1,23 @@
+# Neural Network Configuration
+model:
+  name: neural_network
+  type: feedforward
+
+architecture:
+  hidden_layers: [128, 64, 32]
+  activation: relu
+  output_activation: sigmoid
+  dropout: 0.3
+  batch_norm: true
+
+training:
+  optimizer: adam
+  learning_rate: 0.001
+  batch_size: 256
+  epochs: 50
+  early_stopping_patience: 10
+  test_size: 0.2
+  
+regularization:
+  weight_decay: 0.0001
+  dropout_rate: 0.3

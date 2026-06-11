@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environment
+venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data (large files)
+XAI-ZTA/data/raw/*.csv
+XAI-ZTA/data/raw/*.json
+!XAI-ZTA/data/raw/place_raw_dataset_here.txt
+
+# Model artifacts (large binary files)
+*.pkl
+*.joblib
+*.pt
+*.pth
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+XAI-ZTA/experiments/logs/*.txt
+!XAI-ZTA/experiments/logs/.gitkeep
+
+# Reports
+*.pdf
+!XAI-ZTA/user_study/questionnaire.pdf
+
+# Claude Code
+.claude/
+CLAUDE.md

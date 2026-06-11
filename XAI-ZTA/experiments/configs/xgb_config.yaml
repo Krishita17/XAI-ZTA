@@ -1,0 +1,21 @@
+# XGBoost Configuration
+model:
+  name: xgboost
+  type: xgboost.XGBClassifier
+
+hyperparameters:
+  learning_rate: 0.05
+  max_depth: 6
+  n_estimators: 300
+  scale_pos_weight: auto  # Computed from class imbalance ratio
+  random_state: 42
+  eval_metric: logloss
+  use_label_encoder: false
+  subsample: 0.8
+  colsample_bytree: 0.8
+
+training:
+  test_size: 0.2
+  cv_folds: 5
+  early_stopping_rounds: 20
+  scoring: f1_weighted
