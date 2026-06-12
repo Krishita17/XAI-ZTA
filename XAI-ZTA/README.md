@@ -2,7 +2,7 @@
   <img src="https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" />
-  <img src="https://img.shields.io/badge/PyTorch-Neural%20Net-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" />
+  <img src="https://img.shields.io/badge/scikit--learn-MLP%20Neural%20Net-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" />
   <img src="https://img.shields.io/badge/NIST-SP%20800--207-003366?style=for-the-badge" />
 </p>
 
@@ -79,7 +79,7 @@ The dashboard works immediately with synthetic data — no model training requir
 ### ML Pipeline
 | Feature | Description |
 |---------|-------------|
-| **3 ML Models** | Random Forest, XGBoost, PyTorch Neural Network — trained on 50K synthetic auth events |
+| **3 ML Models** | Random Forest, XGBoost, sklearn MLPClassifier Neural Network — trained on 50K synthetic auth events |
 | **5-Fold Cross-Validation** | Rigorous model evaluation with stratified splits |
 | **Automated Training Pipeline** | One-command pipeline: data generation → feature engineering → training → evaluation |
 | **Model Comparison** | Head-to-head accuracy, F1, AUC-ROC, and inference time benchmarks |
@@ -87,7 +87,7 @@ The dashboard works immediately with synthetic data — no model training requir
 ### Explainable AI (XAI)
 | Feature | Description |
 |---------|-------------|
-| **SHAP Explanations** | TreeExplainer for RF/XGBoost, KernelExplainer for Neural Net |
+| **SHAP Explanations** | TreeExplainer for RF/XGBoost, KernelExplainer for MLPClassifier |
 | **LIME Explanations** | Local linear surrogate models for any classifier |
 | **Anchor Rules** | IF-THEN rules with precision and coverage metrics |
 | **Counterfactual Analysis** | "What would change the decision?" — actionable remediation |
@@ -197,7 +197,7 @@ XAI-ZTA/
 │   │   ├── evaluate.py              # Accuracy, F1, AUC-ROC, confusion matrix
 │   │   ├── random_forest.py         # RF classifier with CV
 │   │   ├── xgboost_model.py         # XGBoost with auto class balancing
-│   │   ├── neural_net.py            # PyTorch feedforward with early stopping
+│   │   ├── neural_net.py            # sklearn MLPClassifier with early stopping
 │   │   └── model_utils.py           # joblib save/load helpers
 │   │
 │   ├── xai/
@@ -294,9 +294,8 @@ pip install -r requirements.txt
 |---------|---------|---------|
 | numpy | ≥1.24.0 | Numerical computing |
 | pandas | ≥2.0.0 | Data manipulation |
-| scikit-learn | ≥1.3.0 | ML models and metrics |
+| scikit-learn | ≥1.3.0 | ML models, MLPClassifier neural network, and metrics |
 | xgboost | ≥1.7.0 | Gradient boosting classifier |
-| torch | ≥2.0.0 | Neural network (PyTorch) |
 | shap | ≥0.42.0 | SHAP explanations |
 | lime | ≥0.2.0.1 | LIME explanations |
 | streamlit | ≥1.28.0 | Dashboard framework |
@@ -439,25 +438,25 @@ scale_pos_weight: auto  # computed from class imbalance ratio
 
 Highest accuracy overall (~2ms inference).
 
-### Neural Network (Feedforward, PyTorch)
+### Neural Network (sklearn MLPClassifier)
 
 ```yaml
 hidden_layers: [128, 64, 32]
-dropout: 0.3
-optimizer: Adam
+activation: relu
+solver: adam
 learning_rate: 0.001
-epochs: 50 (with early stopping)
+max_iter: 100 (with early stopping, patience=10)
 ```
 
-Uses `KernelExplainer` for SHAP (~5ms inference).
+Uses sklearn's `MLPClassifier` — fast, reliable across all platforms (macOS/Linux/Windows). Uses `KernelExplainer` for SHAP (~0.03ms inference).
 
 ### Expected Performance
 
 | Model | Accuracy | F1 Score | AUC-ROC | Inference |
 |-------|----------|----------|---------|-----------|
-| Random Forest | ~0.94 | ~0.94 | ~0.97 | ~1ms |
-| XGBoost | ~0.95 | ~0.95 | ~0.98 | ~2ms |
-| Neural Network | ~0.92 | ~0.92 | ~0.96 | ~5ms |
+| Random Forest | 0.907 | 0.910 | 0.948 | ~13ms |
+| XGBoost | 0.876 | 0.888 | 0.949 | ~0.2ms |
+| Neural Network (MLP) | **0.921** | **0.917** | **0.952** | ~0.03ms |
 
 ---
 
@@ -613,9 +612,9 @@ python -m src.models.train
 </details>
 
 <details>
-<summary><strong>PyTorch hangs on macOS (Apple Silicon)</strong></summary>
+<summary><strong>Neural network convergence warning</strong></summary>
 
-The neural network is configured to use CPU only to avoid MPS/BatchNorm1d compatibility issues. This is intentional and does not affect performance for this dataset size.
+If you see a `ConvergenceWarning`, increase `max_iter` in `src/models/train.py`. The default (100) with early stopping (patience=10) converges in ~24 iterations on the synthetic dataset.
 </details>
 
 ---

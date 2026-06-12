@@ -1,23 +1,21 @@
-# Neural Network Configuration
+# Neural Network Configuration (sklearn MLPClassifier)
 model:
   name: neural_network
-  type: feedforward
+  type: MLPClassifier
 
 architecture:
   hidden_layers: [128, 64, 32]
   activation: relu
-  output_activation: sigmoid
-  dropout: 0.3
-  batch_norm: true
+  solver: adam
 
 training:
-  optimizer: adam
   learning_rate: 0.001
-  batch_size: 256
-  epochs: 50
+  batch_size: 1024
+  max_iter: 100
+  early_stopping: true
   early_stopping_patience: 10
+  validation_fraction: 0.1
   test_size: 0.2
-  
+
 regularization:
-  weight_decay: 0.0001
-  dropout_rate: 0.3
+  alpha: 0.0001

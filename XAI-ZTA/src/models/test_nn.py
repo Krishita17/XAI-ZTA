@@ -1,21 +1,19 @@
-# save this as test_nn.py in your XAI-ZTA folder and run: python test_nn.py
+# Quick test for the MLPClassifier neural network
 import numpy as np
-import torch
+from sklearn.neural_network import MLPClassifier
+
 print("1. Imports OK")
 
-from torch.utils.data import DataLoader, TensorDataset
-print("2. DataLoader OK")
+X = np.random.randn(1000, 10)
+y = np.random.randint(0, 2, 1000)
+print("2. Dummy data OK")
 
-X = np.random.randn(1000, 10).astype(np.float32)
-y = np.random.randint(0, 2, 1000).astype(np.float32)
-print("3. Dummy data OK")
+model = MLPClassifier(hidden_layer_sizes=(128, 64, 32), max_iter=20, random_state=42)
+model.fit(X, y)
+print(f"3. Training OK — {model.n_iter_} iterations")
 
-dataset = TensorDataset(torch.FloatTensor(X), torch.FloatTensor(y))
-loader = DataLoader(dataset, batch_size=64, shuffle=True, num_workers=0)
-print("4. DataLoader created OK")
+preds = model.predict(X[:5])
+proba = model.predict_proba(X[:5])
+print(f"4. Predictions OK — {preds}, proba shape: {proba.shape}")
 
-for batch_X, batch_y in loader:
-    print("5. DataLoader iteration OK — batch shape:", batch_X.shape)
-    break
-
-print("6. ALL GOOD — problem is elsewhere in your pipeline")
+print("5. ALL GOOD")
