@@ -91,11 +91,24 @@ CUSTOM_CSS = """
 }
 
 div[data-testid="stMetric"] {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     border-radius: 10px;
     padding: 12px 16px;
     border-left: 4px solid #667eea;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+div[data-testid="stMetric"] label {
+    color: #a0aec0 !important;
+}
+
+div[data-testid="stMetric"] [data-testid="stMetricValue"] {
+    color: #ffffff !important;
+    font-weight: 700;
+}
+
+div[data-testid="stMetric"] [data-testid="stMetricDelta"] {
+    color: #90cdf4 !important;
 }
 
 .stTabs [data-baseweb="tab-list"] {
