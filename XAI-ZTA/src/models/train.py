@@ -89,7 +89,7 @@ def train_all_models(X_train, X_test, y_train, y_test, feature_names):
         hidden_layers=[128, 64, 32],
         dropout=0.3,
         lr=0.001,
-        epochs=20,
+        epochs=100,
         batch_size=1024,
         patience=10,       # ← explicitly set
         random_state=42,   # ← explicitly set
